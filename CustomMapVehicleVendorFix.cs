@@ -63,12 +63,8 @@ namespace Oxide.Plugins
                 if (!IsLive(vehicleVendor))
                     continue;
 
-                var currentSpawner = vehicleVendor.GetVehicleSpawner();
-                var vehicleSpawner = currentSpawner;
-                if (!IsLive(vehicleSpawner))
-                    vehicleSpawner = vehicleVendor.vehicleSpawner;
-
-                if (IsLive(vehicleSpawner) && currentSpawner == vehicleSpawner && vehicleVendor.vehicleSpawner == vehicleSpawner)
+                var vehicleSpawner = vehicleVendor.GetVehicleSpawner();
+                if (IsLive(vehicleSpawner))
                     continue;
 
                 var vendorPosition = vehicleVendor.transform.position;
@@ -100,7 +96,6 @@ namespace Oxide.Plugins
                 }
 
                 vehicleVendor.spawnerRef.Set(vehicleSpawner);
-                vehicleVendor.vehicleSpawner = vehicleSpawner;
                 vehicleVendor.InvalidateNetworkCache();
                 linkedCount++;
                 Puts($"Set Vehicle Spawner for Vendor @ {vendorPosition}: {vehicleSpawner.ShortPrefabName} @ {vehicleSpawner.transform.position}");
